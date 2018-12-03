@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container"/>
+    <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar"/>
 
     <breadcrumb class="breadcrumb-container"/>
 
@@ -130,9 +130,10 @@ export default {
       height: 50px;
       margin-right: 30px;
       .avatar-wrapper {
-        cursor: pointer;
         margin-top: 5px;
         position: relative;
+        line-height: initial;
+        cursor: pointer;
         .user-avatar {
           width: 40px;
           height: 40px;
