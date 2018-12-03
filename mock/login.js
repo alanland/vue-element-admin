@@ -16,12 +16,12 @@ const userMap = {
 }
 
 export default {
-  '/login/login': config => {
+  '/rest/login/login': config => {
     const { username } = config.body
     return userMap[username]
   },
-  '/login/logout': 'success',
-  '/user/info': config => {
+  '/rest/login/logout': 'success',
+  '/rest/user/info': config => {
     const { token } = config.query
     if (userMap[token]) {
       return userMap[token]

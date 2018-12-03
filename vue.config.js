@@ -30,11 +30,11 @@ module.exports = {
       errors: true
     },
     proxy: {
-      '/api': {
+      '/rest': {
         target: `http://localhost:${port}/mock`,
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          '^/rest': ''
         }
       }
     },
