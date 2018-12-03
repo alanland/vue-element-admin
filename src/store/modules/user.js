@@ -50,7 +50,7 @@ const user = {
       return new Promise((resolve, reject) => {
         loginByUsername(username, userInfo.password).then(response => {
           const data = response.data
-          const token = data.data.token
+          const token = data.token
           commit('SET_TOKEN', token)
           setToken(token)
           resolve()
