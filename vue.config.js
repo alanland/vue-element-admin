@@ -31,7 +31,7 @@ module.exports = {
     },
     proxy: {
       '/rest': {
-        target: `http://localhost:${port}/mock`,
+        target: `http://localhost:${port}/rest`,
         changeOrigin: true,
         pathRewrite: {
           '^/rest': ''

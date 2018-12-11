@@ -79,12 +79,22 @@ export const constantRouterMap = [
     path: '/documentation',
     component: Layout,
     redirect: '/documentation/index',
+    meta: {
+      title: 'documentation',
+      icon: 'documentation'
+    },
     children: [
       {
         path: 'index',
         component: () => import('@/views/documentation/index'),
         name: 'Documentation',
         meta: { title: 'documentation', icon: 'documentation', noCache: true }
+      },
+      {
+        path: 'user',
+        component: () => import('@/views/ui/sys/user/index'),
+        name: 'SystemUser',
+        meta: { title: 'SystemUser', icon: 'documentation', noCache: true }
       }
     ]
   },
