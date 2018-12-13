@@ -1,16 +1,24 @@
 import waves from '@/directive/waves'
 import * as _ from 'lodash'
 import {parseTime} from '@/utils'
+import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
 export default {
   directives: {
     waves
+  },
+  components: {
+    Pagination
   },
   filters: {},
   data() {
     return {
       list: [],
       api: {},
+      total: 0, // list 总行数
+      dialogFormVisible: false,
+      dialogTitleMap: {create: 'Create', edit: 'edit'},
+      dialogStatus: 'create', // edit
       defaultListQuery: {
         page: 1,
         size: 10,
@@ -83,7 +91,7 @@ export default {
     resetForm() {
       this.form = Object.assign({}, this.defaultForm)
     },
-    handleCreate() {
+    handleNew() {
       this.resetForm()
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
@@ -91,13 +99,14 @@ export default {
         this.$refs['dataForm'].clearValidate()
       })
     },
-    getCreateData() {
+    getNewItem() {
       return {code: this.form.code, name: this.form.name, remark: this.form.remark}
     },
-    createData() {
+    handleCreate() {
+      console.log(this.form)
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          const data = this.getCreateData()
+          const data = Object.assign({}, this.form)
           this.api.save(data).then(res => {
             this.getList()
             this.dialogFormVisible = false
@@ -114,11 +123,11 @@ export default {
     getUpdateData(row) {
       return {id: row.id, code: row.code, name: row.name, remark: row.remark}
     },
-    handleUpdate(row) {
+    handleEdit(row) {
       this.form = this.getUpdateData(row)
       this.$router.push(`/zhw/item/${this.itemClass}/${this.form.id}/${this.form.name}`)
     },
-    updateData() {
+    handleUpdate() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.form)
