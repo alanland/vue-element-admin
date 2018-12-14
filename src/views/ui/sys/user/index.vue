@@ -10,6 +10,7 @@
     <div class="buttons flex-row">
       <el-button type="primary" @click="getList">查询</el-button>
       <el-button type="primary" @click="handleNew">新增</el-button>
+      <el-button type="danger" @click="handleDeleteSelected">删除</el-button>
     </div>
   </sticky>
 
@@ -64,7 +65,7 @@
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogFormVisible = false">取消</el-button>
       <el-button v-if="dialogStatus==='create'" type="primary" @click="handleCreate">保存</el-button>
-      <el-button v-else type="primary" @click="handleUpdate">保存</el-button>
+      <el-button v-else type="primary" @click="handleUpdate">更新</el-button>
     </div>
   </el-dialog>
 
@@ -90,11 +91,12 @@
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
         <el-button v-if="scope.row.status === 0" type="warning" title="禁用" icon="el-icon-close" size="mini"
-                   circle></el-button>
-        <el-button v-else type="success" icon="el-icon-check" size="mini" circle></el-button>
-        <el-button type="primary" icon="el-icon-edit" size="mini" circle></el-button>
+                   circle @click="handleDisable"></el-button>
+        <el-button v-else type="success" icon="el-icon-check" size="mini" circle
+                   @click="handleEnable(scope.row)"></el-button>
+        <el-button type="primary" icon="el-icon-edit" size="mini" circle @click="handleEdit(scope.row)"></el-button>
         <el-button type="info" icon="el-icon-message" size="mini" circle></el-button>
-        <el-button type="danger" icon="el-icon-delete" size="mini" circle></el-button>
+        <el-button type="danger" icon="el-icon-delete" size="mini" circle @click="handleDelete(scope.row)"></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -116,7 +118,6 @@ export default {
   data() {
     return {
       api,
-      selection: [],
       defaultListQuery: {
         page: 1,
         size: 100,
@@ -131,12 +132,9 @@ export default {
   },
   async created() {
     const res = await apiRole.options()
-    this.roleOptions = res.data.data
+    this.roleOptions = res.data
   },
   methods: {
-    handleSelectionChange(val) {
-      this.selection = val
-    }
   }
 }
 

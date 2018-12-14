@@ -16,6 +16,7 @@ export default {
       list: [],
       api: {},
       total: 0, // list 总行数
+      selection: [], // 选中的数据
       dialogFormVisible: false,
       dialogTitleMap: {create: 'Create', edit: 'edit'},
       dialogStatus: 'create', // edit
@@ -68,13 +69,13 @@ export default {
         query.orderCode = [query.orderCode, 'like']
       }
       return this.api.list(query).then(response => {
-        this.list = response.data.data.items
-        this.total = response.data.data.total
+        this.list = response.data.items
+        this.total = response.data.total
         this.listLoading = false
       })
     },
     handleSelectionChange(val) {
-      this.multipleSelection = val
+      this.selection = val
     },
     handleFilter() {
       this.listQuery.page = 1
@@ -124,8 +125,9 @@ export default {
       return {id: row.id, code: row.code, name: row.name, remark: row.remark}
     },
     handleEdit(row) {
-      this.form = this.getUpdateData(row)
-      this.$router.push(`/zhw/item/${this.itemClass}/${this.form.id}/${this.form.name}`)
+      this.form = row
+      this.dialogStatus = 'edit'
+      this.dialogFormVisible = true
     },
     handleUpdate() {
       this.$refs['dataForm'].validate((valid) => {
@@ -158,11 +160,29 @@ export default {
         cancelButtonText: this.$t('cancel'),
         type: 'warning'
       }).then(() => {
-        this.api.remove(row.id).then(res => {
+        this.api.remove([row.id]).then(res => {
           this.getList()
           this.$notify({title: '成功', message: '删除成功', type: 'success', duration: 2000})
         })
       })
+    },
+    handleDeleteSelected() {
+      this.$confirm('是否确认删除?', '提示', {
+        confirmButtonText: this.$t('ok'),
+        cancelButtonText: this.$t('cancel'),
+        type: 'warning'
+      }).then(() => {
+        this.api.remove(this.selection.map(it => it.id)).then(res => {
+          this.getList()
+          this.$notify({title: '成功', message: '删除成功', type: 'success', duration: 2000})
+        }).catch(() => this.getList())
+      })
+    },
+    handleEnable(row) {
+
+    },
+    handleDisable(row) {
+
     },
     handleDownload() {
       this.downloadLoading = true
