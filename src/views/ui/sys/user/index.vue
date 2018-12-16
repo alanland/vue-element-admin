@@ -70,7 +70,8 @@
   </el-dialog>
 
   <div class="content-container">
-    <el-table ref="multipleTable" :data="list" :stripe="true" tooltip-effect="dark" style="width: 100%"
+    <el-table v-loading="listLoading" ref="multipleTable" :data="list" :stripe="true" tooltip-effect="dark"
+              style="width: 100%"
               @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55">
       </el-table-column>
@@ -91,7 +92,7 @@
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
         <el-button v-if="scope.row.status === 0" type="warning" title="禁用" icon="el-icon-close" size="mini"
-                   circle @click="handleDisable"></el-button>
+                   circle @click="handleDisable(scope.row)"></el-button>
         <el-button v-else type="success" icon="el-icon-check" size="mini" circle
                    @click="handleEnable(scope.row)"></el-button>
         <el-button type="primary" icon="el-icon-edit" size="mini" circle @click="handleEdit(scope.row)"></el-button>
@@ -134,8 +135,7 @@ export default {
     const res = await apiRole.options()
     this.roleOptions = res.data
   },
-  methods: {
-  }
+  methods: {}
 }
 
 </script>

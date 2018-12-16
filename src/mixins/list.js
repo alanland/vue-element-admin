@@ -178,11 +178,19 @@ export default {
         }).catch(() => this.getList())
       })
     },
-    handleEnable(row) {
-
+    async handleEnable(row) {
+      const res = await this.api.enable(row.id)
+      if (res.code === 0) {
+        row.status = 0
+        this.$notify({title: '成功', message: '启用成功', type: 'success', duration: 2000})
+      }
     },
-    handleDisable(row) {
-
+    async handleDisable(row) {
+      const res = await this.api.disable(row.id)
+      if (res.code === 0) {
+        row.status = 1
+        this.$notify({title: '成功', message: '禁用成功', type: 'success', duration: 2000})
+      }
     },
     handleDownload() {
       this.downloadLoading = true
