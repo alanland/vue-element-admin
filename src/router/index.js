@@ -17,19 +17,19 @@ import nestedRouter from './modules/nested'
  **/
 
 /**
-* hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
-* alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
-*                                if not set alwaysShow, only more than one route under the children
-*                                it will becomes nested mode, otherwise not show the root menu
-* redirect: noredirect           if `redirect:noredirect` will no redirect in the breadcrumb
-* name:'router-name'             the name is used by <keep-alive> (must set!!!)
-* meta : {
+ * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
+ * alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
+ *                                if not set alwaysShow, only more than one route under the children
+ *                                it will becomes nested mode, otherwise not show the root menu
+ * redirect: noredirect           if `redirect:noredirect` will no redirect in the breadcrumb
+ * name:'router-name'             the name is used by <keep-alive> (must set!!!)
+ * meta : {
     roles: ['admin','editor']     will control the page roles (you can set multiple roles)
     title: 'title'               the name show in submenu and breadcrumb (recommend set)
     icon: 'svg-name'             the icon show in the sidebar,
     noCache: true                if true ,the page will no be cached(default is false)
   }
-**/
+ **/
 export const constantRouterMap = [
   {
     path: '/redirect',
@@ -71,7 +71,7 @@ export const constantRouterMap = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
+        meta: {title: 'dashboard', icon: 'dashboard', noCache: true}
       }
     ]
   },
@@ -88,13 +88,7 @@ export const constantRouterMap = [
         path: 'index',
         component: () => import('@/views/documentation/index'),
         name: 'Documentation',
-        meta: { title: 'documentation', icon: 'documentation', noCache: true }
-      },
-      {
-        path: 'user',
-        component: () => import('@/views/ui/sys/user/index'),
-        name: 'SystemUser',
-        meta: { title: 'SystemUser', icon: 'documentation', noCache: true }
+        meta: {title: 'documentation', icon: 'documentation', noCache: true}
       }
     ]
   },
@@ -107,7 +101,7 @@ export const constantRouterMap = [
         path: 'index',
         component: () => import('@/views/guide/index'),
         name: 'Guide',
-        meta: { title: 'guide', icon: 'guide', noCache: true }
+        meta: {title: 'guide', icon: 'guide', noCache: true}
       }
     ]
   }
@@ -115,7 +109,7 @@ export const constantRouterMap = [
 
 export default new Router({
   mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({y: 0}),
   routes: constantRouterMap
 })
 
@@ -131,6 +125,13 @@ export const asyncRouterMap = [
       roles: ['admin', 'editor'] // you can set roles in root nav
     },
     children: [
+      {
+        path: 'user',
+        component: () => import('@/views/ui/sys/user/index'),
+        name: 'SystemUser',
+        menu: 'user',
+        meta: {title: 'SystemUser', icon: 'documentation', noCache: true}
+      },
       {
         path: 'page',
         component: () => import('@/views/permission/page'),
@@ -160,7 +161,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/svg-icons/index'),
         name: 'Icons',
-        meta: { title: 'icons', icon: 'icon', noCache: true }
+        meta: {title: 'icons', icon: 'icon', noCache: true}
       }
     ]
   },
@@ -185,20 +186,20 @@ export const asyncRouterMap = [
         path: 'create',
         component: () => import('@/views/example/create'),
         name: 'CreateArticle',
-        meta: { title: 'createArticle', icon: 'edit' }
+        meta: {title: 'createArticle', icon: 'edit'}
       },
       {
         path: 'edit/:id(\\d+)',
         component: () => import('@/views/example/edit'),
         name: 'EditArticle',
-        meta: { title: 'editArticle', noCache: true },
+        meta: {title: 'editArticle', noCache: true},
         hidden: true
       },
       {
         path: 'list',
         component: () => import('@/views/example/list'),
         name: 'ArticleList',
-        meta: { title: 'articleList', icon: 'list' }
+        meta: {title: 'articleList', icon: 'list'}
       }
     ]
   },
@@ -211,7 +212,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/tab/index'),
         name: 'Tab',
-        meta: { title: 'tab', icon: 'tab' }
+        meta: {title: 'tab', icon: 'tab'}
       }
     ]
   },
@@ -230,13 +231,13 @@ export const asyncRouterMap = [
         path: '401',
         component: () => import('@/views/errorPage/401'),
         name: 'Page401',
-        meta: { title: 'page401', noCache: true }
+        meta: {title: 'page401', noCache: true}
       },
       {
         path: '404',
         component: () => import('@/views/errorPage/404'),
         name: 'Page404',
-        meta: { title: 'page404', noCache: true }
+        meta: {title: 'page404', noCache: true}
       }
     ]
   },
@@ -250,7 +251,7 @@ export const asyncRouterMap = [
         path: 'log',
         component: () => import('@/views/errorLog/index'),
         name: 'ErrorLog',
-        meta: { title: 'errorLog', icon: 'bug' }
+        meta: {title: 'errorLog', icon: 'bug'}
       }
     ]
   },
@@ -269,19 +270,19 @@ export const asyncRouterMap = [
         path: 'export-excel',
         component: () => import('@/views/excel/exportExcel'),
         name: 'ExportExcel',
-        meta: { title: 'exportExcel' }
+        meta: {title: 'exportExcel'}
       },
       {
         path: 'export-selected-excel',
         component: () => import('@/views/excel/selectExcel'),
         name: 'SelectExcel',
-        meta: { title: 'selectExcel' }
+        meta: {title: 'selectExcel'}
       },
       {
         path: 'upload-excel',
         component: () => import('@/views/excel/uploadExcel'),
         name: 'UploadExcel',
-        meta: { title: 'uploadExcel' }
+        meta: {title: 'uploadExcel'}
       }
     ]
   },
@@ -291,13 +292,13 @@ export const asyncRouterMap = [
     component: Layout,
     redirect: '/zip/download',
     alwaysShow: true,
-    meta: { title: 'zip', icon: 'zip' },
+    meta: {title: 'zip', icon: 'zip'},
     children: [
       {
         path: 'download',
         component: () => import('@/views/zip/index'),
         name: 'ExportZip',
-        meta: { title: 'exportZip' }
+        meta: {title: 'exportZip'}
       }
     ]
   },
@@ -311,7 +312,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/theme/index'),
         name: 'Theme',
-        meta: { title: 'theme', icon: 'theme' }
+        meta: {title: 'theme', icon: 'theme'}
       }
     ]
   },
@@ -325,7 +326,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/clipboard/index'),
         name: 'ClipboardDemo',
-        meta: { title: 'clipboardDemo', icon: 'clipboard' }
+        meta: {title: 'clipboardDemo', icon: 'clipboard'}
       }
     ]
   },
@@ -338,7 +339,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/i18n-demo/index'),
         name: 'I18n',
-        meta: { title: 'i18n', icon: 'international' }
+        meta: {title: 'i18n', icon: 'international'}
       }
     ]
   },
@@ -349,10 +350,10 @@ export const asyncRouterMap = [
     children: [
       {
         path: 'https://github.com/PanJiaChen/vue-element-admin',
-        meta: { title: 'externalLink', icon: 'link' }
+        meta: {title: 'externalLink', icon: 'link'}
       }
     ]
   },
 
-  { path: '*', redirect: '/404', hidden: true }
+  {path: '*', redirect: '/404', hidden: true}
 ]
