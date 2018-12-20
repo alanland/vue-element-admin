@@ -18,7 +18,7 @@ export default {
       total: 0, // list 总行数
       selection: [], // 选中的数据
       dialogFormVisible: false,
-      dialogTitleMap: {create: 'Create', edit: 'edit'},
+      dialogTitleMap: {create: '新增', edit: '编辑'},
       dialogStatus: 'create', // edit
       defaultListQuery: {
         page: 1,
@@ -45,6 +45,14 @@ export default {
   },
   async mounted() {
     await this.getList()
+  },
+  computed: {
+    editing() {
+      return this.dialogStatus === 'edit'
+    },
+    creating() {
+      return this.dialogStatus === 'creat'
+    }
   },
   methods: {
     getApi: require('@/api/getApi'),

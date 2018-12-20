@@ -115,6 +115,61 @@ export default new Router({
 
 export const asyncRouterMap = [
   {
+    path: '/user',
+    component: Layout,
+    redirect: '/user/index',
+    alwaysShow: true, // will always show the root menu
+    meta: {
+      title: '用户管理',
+      icon: 'lock'
+    },
+    children: [
+      {
+        path: 'user',
+        component: () => import('@/views/ui/sys/user/index'),
+        name: 'user',
+        menu: 'user',
+        meta: {title: '用户', icon: 'documentation', noCache: true}
+      }
+    ]
+  },
+
+  {
+    path: '/admin',
+    component: Layout,
+    redirect: '/company/index',
+    alwaysShow: true, // will always show the root menu
+    meta: {
+      title: '客户管理',
+      icon: 'lock'
+    },
+    children: [
+      {
+        path: 'company',
+        component: () => import('@/views/ui/manage/company/index'),
+        name: 'company',
+        meta: {title: '企业', icon: 'documentation', noCache: true}
+      },
+      {
+        path: 'company-positions/:companyId',
+        hidden: true,
+        props: true,
+        component: () => import('@/views/ui/manage/company-positions/index'),
+        name: 'company-positions',
+        meta: {title: '企业招聘', icon: 'documentation', noCache: true}
+      },
+      {
+        path: 'delivery/:positionId',
+        hidden: true,
+        props: true,
+        component: () => import('@/views/ui/manage/delivery/index'),
+        name: 'delivery',
+        meta: {title: '岗位投递详情', icon: 'documentation', noCache: true}
+      }
+    ]
+  },
+
+  {
     path: '/permission',
     component: Layout,
     redirect: '/permission/index',

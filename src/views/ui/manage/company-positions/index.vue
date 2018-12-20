@@ -1,9 +1,20 @@
 <style lang="stylus" scoped>
-
+.page-company-positions {
+  .company-info {
+    margin 10px 0
+    padding 0 20px
+    font-size 20px
+  }
+}
 </style>
 
 <template>
-<div class="page page-user">
+<div class="page page-company-positions">
+
+  <div class="margin-b10 full-width company-info">
+    公司：{{company.name}}
+  </div>
+
   <sticky ref="filterForm" :model="form" class-name="filter-container flex-row flex-wrap full-width">
     <div class="filters">
     </div>
@@ -89,6 +100,12 @@
       </el-table-column>
       <el-table-column prop="email" label="邮件" width="300" show-overflow-tooltip>
       </el-table-column>
+      <el-table-column label="查看招聘" width="120">
+        <template slot-scope="scope">
+        <router-link class="route-link" :to="{ name: 'delivery', params: { positionId: scope.row.id }}">查看招聘详情
+        </router-link>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
         <el-button v-if="scope.row.status === 0" type="warning" title="禁用" icon="el-icon-close" size="mini"
@@ -110,32 +127,39 @@
 <script>
 import Sticky from '@/components/Sticky' // 粘性header组件
 import ListMixin from '@/mixins/list'
-import api from '@/api/sys/user'
+import api from '@/api/zhaopin/position'
+import apiCompany from '@/api/zhaopin/company'
 import apiRole from '@/api/sys/role'
 
 export default {
   components: {Sticky},
   mixins: [ListMixin],
+  props: {
+    companyId: {
+      type: Number,
+      default: 0
+    }
+  },
   data() {
     return {
       api,
+      company: {},
       defaultListQuery: {
         page: 1,
         size: 100,
-        city: undefined,
-        district: undefined,
-        area1: undefined, // [100,999,'between:int']
-        sort: 'hintCode,asc'
+        sort: 'code,asc',
+        companyId: this.companyId
       },
 
       roleOptions: []
     }
   },
   async created() {
-    const res = await apiRole.options()
-    this.roleOptions = res.data
+    const res = await apiCompany.get(this.companyId)
+    this.company = res.data
   },
-  methods: {}
+  methods: {
+  }
 }
 
 </script>
