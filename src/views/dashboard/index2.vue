@@ -1,6 +1,6 @@
 <template>
-  <div class="dashboard-container flex-row justify-cc align-ic">
-    <img src="./images/bg.jpg" alt="">
+  <div class="dashboard-container">
+    <component :is="currentRole"/>
   </div>
 </template>
 

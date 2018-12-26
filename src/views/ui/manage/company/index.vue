@@ -177,7 +177,7 @@
       </el-table-column>
       <el-table-column label="查看招聘" width="120">
         <template slot-scope="scope">
-        <router-link class="route-link" :to="{ name: 'company-positions', params: { companyId: scope.row.id }}">查看招聘详情</router-link>
+        <router-link class="route-link" :to="{ name: 'company-positions', params: { companyId: scope.row.id }}">岗位列表</router-link>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="200">

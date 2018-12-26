@@ -86,9 +86,7 @@
               @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55">
       </el-table-column>
-      <el-table-column prop="code" label="用户名" width="120">
-      </el-table-column>
-      <el-table-column prop="name" label="姓名" width="120">
+      <el-table-column prop="name" label="名称" width="120">
       </el-table-column>
       <el-table-column label="状态" width="120">
         <template slot-scope="scope">
@@ -96,13 +94,28 @@
         <el-tag v-else type="info">已禁用</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="phone" label="电话" width="200" show-overflow-tooltip>
+      <el-table-column prop="phone" label="City" width="100" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column prop="email" label="邮件" width="300" show-overflow-tooltip>
+      <el-table-column prop="email" label="Pay" width="100" show-overflow-tooltip>
+        <template slot-scope="scope">
+        {{ translateP('salary', scope.row.pay) }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="email" label="welfare" width="100" show-overflow-tooltip>
+      </el-table-column>
+      <el-table-column prop="email" label="experience" width="100" show-overflow-tooltip>
+        <template slot-scope="scope">
+        {{ translateP('experience', scope.row.experience) }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="email" label="education" width="100" show-overflow-tooltip>
+        <template slot-scope="scope">
+        {{ translateP('education', scope.row.education) }}
+        </template>
       </el-table-column>
       <el-table-column label="查看招聘" width="120">
         <template slot-scope="scope">
-        <router-link class="route-link" :to="{ name: 'delivery', params: { positionId: scope.row.id }}">查看招聘详情
+        <router-link :to="{ name: 'delivery', params: { positionId: scope.row.id }}" class="route-link">招聘详情
         </router-link>
         </template>
       </el-table-column>
@@ -130,6 +143,8 @@ import ListMixin from '@/mixins/list'
 import api from '@/api/zhaopin/position'
 import apiCompany from '@/api/zhaopin/company'
 import apiRole from '@/api/sys/role'
+import data from '@/views/ui/manage/data'
+import {translateP} from '../data'
 
 export default {
   components: {Sticky},
@@ -159,6 +174,7 @@ export default {
     this.company = res.data
   },
   methods: {
+    translateP
   }
 }
 

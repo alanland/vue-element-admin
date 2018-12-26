@@ -1,4 +1,4 @@
-export default {
+const data = {
   cities: [
     {
       'title': '热门城市',
@@ -202,4 +202,23 @@ export default {
       ]
     }
   ]
+}
+export default data
+
+export function translateP(key, value) {
+  let o = data.requirement.filter(i => i.value === key)[0].items.filter(i => i.value === '' + value)
+  if (o && o[0]) {
+    return o[0].name
+  } else {
+    return ''
+  }
+}
+
+export function translateC(key, value) {
+  let o = data.company.filter(i => i.value === key)[0].items.filter(i => i.value === '' + value)
+  if (o && o[0]) {
+    return o[0].name
+  } else {
+    return ''
+  }
 }
