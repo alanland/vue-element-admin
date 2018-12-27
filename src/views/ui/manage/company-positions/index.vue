@@ -115,7 +115,7 @@
       </el-table-column>
       <el-table-column label="查看招聘" width="120">
         <template slot-scope="scope">
-        <router-link :to="{ name: 'delivery', params: { positionId: scope.row.id }}" class="route-link">招聘详情
+        <router-link :to="{ name: 'position-delivery', params: { positionId: scope.row.id }}" class="route-link">招聘详情
         </router-link>
         </template>
       </el-table-column>

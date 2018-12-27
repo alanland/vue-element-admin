@@ -1,11 +1,11 @@
 <template>
-  <div class="login-container">
+  <div class="login-container flex-row align-ic justify-cc">
 
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">{{ $t('login.title') }}</h3>
-        <lang-select class="set-language"/>
+        <!--<h3 class="title">登 录</h3>-->
+        <!--<lang-select class="set-language"/>-->
       </div>
 
       <el-form-item prop="username">
@@ -32,23 +32,23 @@
           name="password"
           auto-complete="on"
           @keyup.enter.native="handleLogin" />
-        <span class="show-pwd" @click="showPwd">
-          <svg-icon icon-class="eye" />
-        </span>
+        <!--<span class="show-pwd" @click="showPwd">-->
+          <!--<svg-icon icon-class="eye" />-->
+        <!--</span>-->
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">{{ $t('login.logIn') }}</el-button>
+      <el-button :loading="loading" type="primary" style="height: 45px;width:100%;margin-bottom:30px;background: #1773fd;font-size: 14px" @click.native.prevent="handleLogin">登 录</el-button>
 
-      <div class="tips">
-        <span>{{ $t('login.username') }} : admin</span>
-        <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
-      </div>
-      <div class="tips">
-        <span style="margin-right:18px;">{{ $t('login.username') }} : editor</span>
-        <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
-      </div>
+      <!--<div class="tips">-->
+        <!--<span>{{ $t('login.username') }} : admin</span>-->
+        <!--<span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>-->
+      <!--</div>-->
+      <!--<div class="tips">-->
+        <!--<span style="margin-right:18px;">{{ $t('login.username') }} : editor</span>-->
+        <!--<span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>-->
+      <!--</div>-->
 
-      <el-button class="thirdparty-button" type="primary" @click="showDialog=true">{{ $t('login.thirdparty') }}</el-button>
+      <!--<el-button class="thirdparty-button" type="primary" @click="showDialog=true">{{ $t('login.thirdparty') }}</el-button>-->
     </el-form>
 
     <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog" append-to-body>
@@ -218,6 +218,7 @@ $light_gray:#eee;
   height: 100%;
   width: 100%;
   background-color: $bg;
+  background: url("./images/bg.jpg") no-repeat;
   .login-form {
     position: absolute;
     left: 0;
@@ -225,7 +226,7 @@ $light_gray:#eee;
     width: 520px;
     max-width: 100%;
     padding: 35px 35px 15px 35px;
-    margin: 120px auto;
+    margin: 0px auto;
   }
   .tips {
     font-size: 14px;

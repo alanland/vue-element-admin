@@ -193,6 +193,8 @@ module.exports = {
     'object-curly-spacing': ['off', 'never', {
       objectsInObjects: false
     }],
-    'array-bracket-spacing': [2, 'never']
+    'array-bracket-spacing': [2, 'never'],
+
+    'vue/mustache-interpolation-spacing': 'off'
   }
 }

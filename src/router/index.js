@@ -71,7 +71,7 @@ export const constantRouterMap = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: {title: 'dashboard', icon: 'dashboard', noCache: true}
+        meta: {title: ' 欢迎', icon: 'dashboard', noCache: true}
       }
     ]
   },
@@ -135,6 +135,41 @@ export const asyncRouterMap = [
   },
 
   {
+    path: '/member',
+    component: Layout,
+    redirect: '/company/index',
+    alwaysShow: true, // will always show the root menu
+    meta: {
+      title: '会员管理',
+      icon: 'lock'
+    },
+    children: [
+      {
+        path: 'member',
+        component: () => import('@/views/ui/manage/member/index'),
+        name: 'member',
+        meta: {title: '会员列表', icon: 'documentation', noCache: true}
+      },
+      {
+        path: 'member/:id',
+        hidden: true,
+        props: true,
+        component: () => import('@/views/ui/manage/member/detail'),
+        name: 'member-detail',
+        meta: {title: '会员详情', icon: 'documentation', noCache: true}
+      },
+      {
+        path: 'member-delivery/:memberId',
+        hidden: true,
+        props: true,
+        component: () => import('@/views/ui/manage/delivery/index'),
+        name: 'member-delivery',
+        meta: {title: '会员投递详情', icon: 'documentation', noCache: true}
+      }
+    ]
+  },
+
+  {
     path: '/admin',
     component: Layout,
     redirect: '/company/index',
@@ -159,11 +194,19 @@ export const asyncRouterMap = [
         meta: {title: '企业岗位列表', icon: 'documentation', noCache: true}
       },
       {
-        path: 'delivery/:positionId',
+        path: 'position/:id',
+        hidden: true,
+        props: true,
+        component: () => import('@/views/ui/manage/position/detail'),
+        name: 'position-detail',
+        meta: {title: '岗位详情', icon: 'documentation', noCache: true}
+      },
+      {
+        path: 'position-delivery/:positionId',
         hidden: true,
         props: true,
         component: () => import('@/views/ui/manage/delivery/index'),
-        name: 'delivery',
+        name: 'position-delivery',
         meta: {title: '岗位投递详情', icon: 'documentation', noCache: true}
       }
     ]

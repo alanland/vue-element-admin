@@ -12,7 +12,12 @@
 <div class="page page-company-positions">
 
   <div class="margin-b10 full-width company-info">
-    岗位：{{ position.name }}
+    <div v-if="positionId">
+      岗位：{{ position.name }}
+    </div>
+    <div v-if="memberId">
+      会员：{{ member.name }}
+    </div>
   </div>
 
   <sticky ref="filterForm" :model="form" class-name="filter-container flex-row flex-wrap full-width">
@@ -42,10 +47,17 @@
               @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55">
       </el-table-column>
-      <el-table-column prop="member_name" label="用户名" width="120">
+      <el-table-column v-if="positionId" prop="member_name" label="用户名" width="120">
         <template slot-scope="scope">
-        <router-link :to="{ name: 'member', params: { id: scope.row.member_id }}" class="route-link">
+        <router-link :to="{ name: 'member-detail', params: { id: scope.row.member_id }}" class="route-link">
           {{ scope.row.member_name }}
+        </router-link>
+        </template>
+      </el-table-column>
+      <el-table-column v-if="memberId" prop=" position_name" label="岗位" width="120">
+        <template slot-scope="scope">
+        <router-link :to="{ name: 'position-detail', params: { id: scope.row.position_id }}" class="route-link">
+          {{ scope.row.position_name }}
         </router-link>
         </template>
       </el-table-column>
@@ -59,8 +71,6 @@
       <el-table-column prop="message1date" label="邀请时间" width="200" show-overflow-tooltip>
       </el-table-column>
       <el-table-column prop="message2date" label="录取时间" width="200" show-overflow-tooltip>
-      </el-table-column>
-      <el-table-column label="查看招聘" width="120">
       </el-table-column>
       <el-table-column label="操作" width="250">
         <template slot-scope="scope">
@@ -85,6 +95,7 @@ import ListMixin from '@/mixins/list'
 import api from '@/api/zhaopin/delivery'
 import apiCompany from '@/api/zhaopin/company'
 import apiPosition from '@/api/zhaopin/position'
+import apiMember from '@/api/zhaopin/member'
 
 export default {
   components: {Sticky},
@@ -104,6 +115,10 @@ export default {
     positionId: {
       type: Number,
       default: 0
+    },
+    memberId: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -114,6 +129,7 @@ export default {
       api,
       company: {},
       position: {},
+      member: {},
       defaultListQuery: {
         page: 1,
         size: 100,
@@ -125,13 +141,25 @@ export default {
     }
   },
   async created() {
-    const res = await apiPosition.get(this.positionId)
-    this.position = res.data
+    if (this.positionId) {
+      const res = await apiPosition.get(this.positionId)
+      this.position = res.data
+    }
+    if (this.memberId) {
+      const res = await apiMember.get(this.memberId)
+      this.member = res.data
+    }
   },
   methods: {
     async getList() {
-      const res = await api.findByPositionId(this.positionId)
-      this.list = res.data
+      if (this.positionId) {
+        const res = await api.findByPositionId(this.positionId)
+        this.list = res.data
+      }
+      if (this.memberId) {
+        const res = await api.findByMemberId(this.memberId)
+        this.list = res.data
+      }
     },
     toInterview(row) {
       this.interviewRow = row
