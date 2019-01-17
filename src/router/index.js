@@ -183,7 +183,13 @@ export const asyncRouterMap = [
         path: 'company',
         component: () => import('@/views/ui/manage/company/index'),
         name: 'company',
-        meta: {title: '企业', icon: 'documentation', noCache: true}
+        meta: {title: '企业列表', icon: 'documentation', noCache: true}
+      },
+      {
+        path: 'bill',
+        component: () => import('@/views/ui/manage/bill/index'),
+        name: 'bill',
+        meta: {title: '企业缴费列表', icon: 'documentation', noCache: true}
       },
       {
         path: 'company-positions/:companyId',

@@ -203,10 +203,23 @@ const data = {
     }
   ]
 }
+data.industryOptions = data.company.filter(i => i.value === 'industry')[0]
+  .items.filter(i => i.value !== '')
+data.financingOptions = data.company.filter(i => i.value === 'financing')[0]
+  .items.filter(i => i.value !== '')
+data.teamSizeOptions = data.company.filter(i => i.value === 'teamSize')[0]
+  .items.filter(i => i.value !== '')
+data.educationOptions = data.requirement.filter(i => i.value === 'education')[0]
+  .items.filter(i => i.value !== '')
+data.experienceOptions = data.requirement.filter(i => i.value === 'experience')[0]
+  .items.filter(i => i.value !== '')
+data.salaryOptions = data.requirement.filter(i => i.value === 'salary')[0]
+  .items.filter(i => i.value !== '')
+
 export default data
 
 export function translateP(key, value) {
-  let o = data.requirement.filter(i => i.value === key)[0].items.filter(i => i.value === '' + value)
+  const o = data.requirement.filter(i => i.value === key)[0].items.filter(i => i.value === '' + value)
   if (o && o[0]) {
     return o[0].name
   } else {
@@ -215,7 +228,7 @@ export function translateP(key, value) {
 }
 
 export function translateC(key, value) {
-  let o = data.company.filter(i => i.value === key)[0].items.filter(i => i.value === '' + value)
+  const o = data.company.filter(i => i.value === key)[0].items.filter(i => i.value === '' + value)
   if (o && o[0]) {
     return o[0].name
   } else {

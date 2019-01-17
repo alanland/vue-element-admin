@@ -182,10 +182,12 @@
       </el-table-column>
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
+        <template v-if="roleHasAdmin">
         <el-button v-if="scope.row.status === 0" type="warning" title="禁用" icon="el-icon-close" size="mini"
                    circle @click="handleDisable(scope.row)"></el-button>
         <el-button v-else type="success" icon="el-icon-check" size="mini" circle
                    @click="handleEnable(scope.row)"></el-button>
+        </template>
         <el-button type="primary" icon="el-icon-edit" size="mini" circle @click="handleEdit(scope.row)"></el-button>
         <el-button type="info" icon="el-icon-message" size="mini" circle></el-button>
         <el-button type="danger" icon="el-icon-delete" size="mini" circle @click="handleDelete(scope.row)"></el-button>
@@ -201,13 +203,14 @@
 <script>
 import Sticky from '@/components/Sticky' // 粘性header组件
 import ListMixin from '@/mixins/list'
+import RoleMixin from '@/mixins/role'
 import api from '@/api/zhaopin/company'
 import apiRole from '@/api/sys/role'
 import data from '../data'
 
 export default {
   components: {Sticky},
-  mixins: [ListMixin],
+  mixins: [ListMixin, RoleMixin],
   data() {
     return {
       api,
@@ -236,7 +239,8 @@ export default {
     this.teamSizeOptions = data.company.filter(i => i.value === 'teamSize')[0]
       .items.filter(i => i.value !== '')
   },
-  methods: {}
+  methods: {
+  }
 }
 
 </script>
