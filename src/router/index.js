@@ -70,11 +70,11 @@ export const constantRouterMap = [
       {
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: {title: ' 欢迎', icon: 'dashboard', noCache: true}
+        name: ' dashboard',
+        meta: {title: ' 平台概况', icon: 'dashboard', noCache: true}
       }
     ]
-  },
+  }
   // {
   //   path: '/documentation',
   //   component: Layout,
@@ -114,22 +114,84 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
+
   {
-    path: '/user',
+    path: '/admin',
     component: Layout,
-    redirect: '/user/index',
+    redirect: '/company/index',
     alwaysShow: true, // will always show the root menu
     meta: {
-      title: '用户管理',
+      title: '企业管理',
       icon: 'lock'
     },
     children: [
       {
-        path: 'user',
-        component: () => import('@/views/ui/sys/user/index'),
-        name: 'user',
-        menu: 'user',
-        meta: {title: '用户', icon: 'documentation', noCache: true}
+        path: 'company',
+        component: () => import('@/views/ui/manage/company/index'),
+        name: 'company',
+        meta: {title: '我的企业', icon: 'documentation', noCache: true}
+      }
+    ]
+  },
+
+  {
+    path: '/admin',
+    component: Layout,
+    redirect: '/company/index',
+    alwaysShow: true, // will always show the root menu
+    meta: {
+      title: '客户管理',
+      icon: 'lock'
+    },
+    children: [
+      {
+        path: 'company',
+        component: () => import('@/views/ui/manage/company/index'),
+        name: 'company',
+        meta: {title: '企业列表', icon: 'documentation', noCache: true}
+      },
+      {
+        path: 'company-positions/:companyId',
+        hidden: true,
+        props: true,
+        component: () => import('@/views/ui/manage/company-positions/index'),
+        name: 'company-positions',
+        meta: {title: '企业岗位列表', icon: 'documentation', noCache: true}
+      },
+      {
+        path: 'position/:id',
+        hidden: true,
+        props: true,
+        component: () => import('@/views/ui/manage/position/detail'),
+        name: 'position-detail',
+        meta: {title: '岗位详情', icon: 'documentation', noCache: true}
+      },
+      {
+        path: 'position-delivery/:positionId',
+        hidden: true,
+        props: true,
+        component: () => import('@/views/ui/manage/delivery/index'),
+        name: 'position-delivery',
+        meta: {title: '岗位投递详情', icon: 'documentation', noCache: true}
+      }
+    ]
+  },
+
+  {
+    path: '/admin',
+    component: Layout,
+    redirect: '/company/index',
+    alwaysShow: true, // will always show the root menu
+    meta: {
+      title: '职位管理',
+      icon: 'lock'
+    },
+    children: [
+      {
+        path: 'company',
+        component: () => import('@/views/ui/manage/company/index'),
+        name: 'company',
+        meta: {title: '职位列表', icon: 'documentation', noCache: true}
       }
     ]
   },
@@ -170,54 +232,56 @@ export const asyncRouterMap = [
   },
 
   {
-    path: '/admin',
+    path: '/bill',
     component: Layout,
     redirect: '/company/index',
     alwaysShow: true, // will always show the root menu
     meta: {
-      title: '客户管理',
+      title: '订单管理',
       icon: 'lock'
     },
     children: [
       {
-        path: 'company',
-        component: () => import('@/views/ui/manage/company/index'),
-        name: 'company',
-        meta: {title: '企业列表', icon: 'documentation', noCache: true}
-      },
-      {
         path: 'bill',
         component: () => import('@/views/ui/manage/bill/index'),
         name: 'bill',
-        meta: {title: '企业缴费列表', icon: 'documentation', noCache: true}
+        meta: {title: '客户缴费列表', icon: 'documentation', noCache: true}
       },
       {
-        path: 'company-positions/:companyId',
-        hidden: true,
-        props: true,
-        component: () => import('@/views/ui/manage/company-positions/index'),
-        name: 'company-positions',
-        meta: {title: '企业岗位列表', icon: 'documentation', noCache: true}
-      },
-      {
-        path: 'position/:id',
-        hidden: true,
-        props: true,
-        component: () => import('@/views/ui/manage/position/detail'),
-        name: 'position-detail',
-        meta: {title: '岗位详情', icon: 'documentation', noCache: true}
-      },
-      {
-        path: 'position-delivery/:positionId',
-        hidden: true,
-        props: true,
-        component: () => import('@/views/ui/manage/delivery/index'),
-        name: 'position-delivery',
-        meta: {title: '岗位投递详情', icon: 'documentation', noCache: true}
+        path: 'welfare',
+        component: () => import('@/views/ui/manage/welfare/index'),
+        name: 'welfare',
+        meta: {title: '会员返佣列表', icon: 'documentation', noCache: true}
       }
     ]
   },
 
+  {
+    path: '/user',
+    component: Layout,
+    redirect: '/user/index',
+    alwaysShow: true, // will always show the root menu
+    meta: {
+      title: '设置',
+      icon: 'lock'
+    },
+    children: [
+      {
+        path: 'user',
+        component: () => import('@/views/ui/sys/user/index'),
+        name: 'user',
+        menu: 'user',
+        meta: {title: '人员列表', icon: 'documentation', noCache: true}
+      },
+      {
+        path: 'user',
+        component: () => import('@/views/ui/sys/user/index'),
+        name: 'user',
+        menu: 'user',
+        meta: {title: '操作日志', icon: 'documentation', noCache: true}
+      }
+    ]
+  },
   // {
   //   path: '/permission',
   //   component: Layout,

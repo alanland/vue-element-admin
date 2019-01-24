@@ -8,5 +8,6 @@ export default Object.assign(baseApi(baseUrl), {
   findByMemberId: (memberId) => request({url: `${baseUrl}/member/${memberId}`, method: GET}),
   interview: data => request({url: `${baseUrl}/interview`, method: PUT, data}),
   ok: id => request({url: `${baseUrl}/ok/${id}`, method: PUT}),
-  notOk: id => request({url: `${baseUrl}/notOk/${id}`, method: PUT})
+  notOk: id => request({url: `${baseUrl}/notOk/${id}`, method: PUT}),
+  welfare: id => request({url: `${baseUrl}/welfare/${id}`, method: PUT}),
 })
