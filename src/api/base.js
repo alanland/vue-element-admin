@@ -2,7 +2,20 @@ import {default as request, GET, POST, PUT, DELETE} from '@/utils/request'
 
 export default function (baseUrl) {
   return {
-    list: params => request({url: `${baseUrl}/list`, method: GET, params}),
+    list: params => {
+      const p = {
+        page: params.page,
+        sort: params.sort,
+        size: params.size
+      }
+      const d = {}
+      for (const k in params) {
+        if (['page', 'sort', 'size'].indexOf(k) < 0) {
+          d[k] = params[k]
+        }
+      }
+      return request({url: `${baseUrl}/list`, method: POST, params: p, data: d})
+    },
     save: data => request({url: baseUrl, method: POST, data}),
     update: (data) => request({url: baseUrl, method: PUT, data}),
     remove: (data) => request({url: baseUrl, method: DELETE, data}),

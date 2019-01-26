@@ -116,7 +116,7 @@ export default new Router({
 export const asyncRouterMap = [
 
   {
-    path: '/admin',
+    path: '/user/company',
     component: Layout,
     redirect: '/company/index',
     alwaysShow: true, // will always show the root menu
@@ -127,7 +127,7 @@ export const asyncRouterMap = [
     children: [
       {
         path: 'company',
-        component: () => import('@/views/ui/manage/company/index'),
+        component: () => import('@/views/ui/manage/company/viewme'),
         name: 'company',
         meta: {title: '我的企业', icon: 'documentation', noCache: true}
       }
@@ -178,7 +178,7 @@ export const asyncRouterMap = [
   },
 
   {
-    path: '/admin',
+    path: '/position',
     component: Layout,
     redirect: '/company/index',
     alwaysShow: true, // will always show the root menu
@@ -188,9 +188,9 @@ export const asyncRouterMap = [
     },
     children: [
       {
-        path: 'company',
-        component: () => import('@/views/ui/manage/company/index'),
-        name: 'company',
+        path: 'position',
+        component: () => import('@/views/ui/manage/position/index'),
+        name: 'position',
         meta: {title: '职位列表', icon: 'documentation', noCache: true}
       }
     ]

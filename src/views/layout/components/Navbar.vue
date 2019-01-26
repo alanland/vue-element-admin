@@ -9,24 +9,25 @@
         <error-log class="errLog-container right-menu-item"/>
 
         <!--<el-tooltip :content="$t('navbar.screenfull')" effect="dark" placement="bottom">-->
-          <!--<screenfull class="screenfull right-menu-item"/>-->
+        <!--<screenfull class="screenfull right-menu-item"/>-->
         <!--</el-tooltip>-->
 
         <!--<el-tooltip :content="$t('navbar.size')" effect="dark" placement="bottom">-->
-          <!--<size-select class="international right-menu-item"/>-->
+        <!--<size-select class="international right-menu-item"/>-->
         <!--</el-tooltip>-->
 
         <!--<lang-select class="international right-menu-item"/>-->
 
         <!--<el-tooltip :content="$t('navbar.theme')" effect="dark" placement="bottom">-->
-          <!--<theme-picker class="theme-switch right-menu-item"/>-->
+        <!--<theme-picker class="theme-switch right-menu-item"/>-->
         <!--</el-tooltip>-->
       </template>
 
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
           <!--<img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">-->
-          <img src="./images/avator.jpg" class="user-avatar">
+          <img src="http://img.zcool.cn/community/0130d15acf6392a80121386742b344.gif@2o.png" class="user-avatar">
+          <div class="username">{{username}}</div>
           <i class="el-icon-caret-bottom"/>
         </div>
         <el-dropdown-menu slot="dropdown">
@@ -50,7 +51,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import ErrorLog from '@/components/ErrorLog'
@@ -69,6 +70,11 @@ export default {
     LangSelect,
     ThemePicker
   },
+  data() {
+    return {
+      username: ''
+    }
+  },
   computed: {
     ...mapGetters([
       'sidebar',
@@ -76,6 +82,9 @@ export default {
       'avatar',
       'device'
     ])
+  },
+  created() {
+    this.username = this.$store.getters.name
   },
   methods: {
     toggleSideBar() {
@@ -95,51 +104,71 @@ export default {
   height: 50px;
   line-height: 50px;
   border-radius: 0px !important;
+
   .hamburger-container {
     line-height: 58px;
     height: 50px;
     float: left;
     padding: 0 10px;
   }
-  .breadcrumb-container{
+
+  .breadcrumb-container {
     float: left;
   }
+
+  .username {
+    display: inline-block;
+    line-height: 50px;
+  }
+
   .errLog-container {
     display: inline-block;
     vertical-align: top;
   }
+
   .right-menu {
     float: right;
     height: 100%;
-    &:focus{
-     outline: none;
+
+    &:focus {
+      outline: none;
     }
+
     .right-menu-item {
       display: inline-block;
       margin: 0 8px;
     }
+
     .screenfull {
       height: 20px;
     }
-    .international{
+
+    .international {
       vertical-align: top;
     }
+
     .theme-switch {
       vertical-align: 15px;
     }
+
     .avatar-container {
       height: 50px;
       margin-right: 30px;
+
       .avatar-wrapper {
         margin-top: 5px;
         position: relative;
         line-height: initial;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+
         .user-avatar {
           width: 40px;
           height: 40px;
           border-radius: 10px;
         }
+
         .el-icon-caret-bottom {
           position: absolute;
           right: -20px;

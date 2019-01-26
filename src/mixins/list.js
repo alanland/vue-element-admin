@@ -73,6 +73,9 @@ export default {
       if (query.code) {
         query.code = [query.code, 'like']
       }
+      if (query.name) {
+        query.name = [query.name, 'like']
+      }
       if (query.orderCode) {
         query.orderCode = [query.orderCode, 'like']
       }
