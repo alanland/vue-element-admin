@@ -23,7 +23,9 @@ export default function (baseUrl) {
     get: (id) => request({url: `${baseUrl}/get/${id}`, method: GET}),
     options: () => request({url: `${baseUrl}/options`, method: GET}),
     disable: (id) => request({url: `${baseUrl}/disable/${id}`, method: PUT}),
+    disableMulti: (data) => request({url: `${baseUrl}/disableMulti`, data, method: PUT}),
     enable: (id) => request({url: `${baseUrl}/enable/${id}`, method: PUT}),
+    enableMulti: (data) => request({url: `${baseUrl}/enableMulti`, data, method: PUT}),
     updateStatus: (data) => request({url: `${baseUrl}/updateStatus`, method: POST, data})
 
   }

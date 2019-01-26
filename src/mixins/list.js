@@ -14,6 +14,7 @@ export default {
   data() {
     return {
       list: [],
+      downloadLoading: false,
       api: {},
       total: 0, // list 总行数
       selection: [], // 选中的数据
@@ -84,6 +85,36 @@ export default {
         this.total = response.data.total
         this.listLoading = false
       })
+    },
+    async disableSelected() {
+      const json = await this.api.disableMulti(this.selection.map(i => i.id))
+      if (json.code === 0) {
+        this.$message({
+          message: '成功',
+          type: 'success'
+        })
+      } else {
+        this.$message({
+          message: json.msg,
+          type: 'error'
+        })
+      }
+      this.getList()
+    },
+    async enableSelected() {
+      const json = await this.api.enableMulti(this.selection.map(i => i.id))
+      if (json.code === 0) {
+        this.$message({
+          message: '成功',
+          type: 'success'
+        })
+      } else {
+        this.$message({
+          message: json.msg,
+          type: 'error'
+        })
+      }
+      this.getList()
     },
     handleSelectionChange(val) {
       this.selection = val

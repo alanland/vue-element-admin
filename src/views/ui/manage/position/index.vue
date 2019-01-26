@@ -18,12 +18,15 @@
           <el-option v-for="item in companyOptions" :key="item.name" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
-        <el-input v-model="listQuery.name" placeholder="名称"></el-input>
+        <el-input v-model="listQuery.name" class="filter-item" placeholder="名称"></el-input>
       </el-form>
       <div class="buttons flex-row">
-        <el-button type="primary" @click="getList">查询</el-button>
-        <el-button type="primary" @click="handleNew">新增</el-button>
-        <el-button type="danger" @click="handleDeleteSelected">删除</el-button>
+        <el-button type="primary" class="filter-item" @click="getList">查询</el-button>
+        <el-button type="primary" class="filter-item" @click="enableSelected">启用</el-button>
+        <el-button type="primary" class="filter-item" @click="disableSelected">禁用</el-button>
+        <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download"
+                   @click="handleDownload">导出
+        </el-button>
       </div>
     </sticky>
 
@@ -109,7 +112,34 @@
         </el-table-column>
         <el-table-column prop="name" label="名称" width="120">
         </el-table-column>
-        <el-table-column label="状态" width="120">
+        <el-table-column v-if="false" label="状态" width="120">
+          <template slot-scope="scope">
+            <template v-if="scope.row.paied===1">
+              <el-tag v-if="scope.row.status === 0">已启用</el-tag>
+              <el-tag v-else type="info">已禁用</el-tag>
+            </template>
+            <template v-else>
+              <el-button v-if="!roleHasAdmin" type="success" size="mini" @click="pay(scope.row)">
+                <svg-icon icon-class="payment" class-name="disabled"/>
+                付款
+              </el-button>
+              <el-tag v-else type="info">未付款</el-tag>
+            </template>
+          </template>
+        </el-table-column>
+        <el-table-column label="付款状态" width="120">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.paied===1">已付款</el-tag>
+            <el-tag v-else>未付款</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="启用状态" width="120">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.status===0">已启用</el-tag>
+            <el-tag v-else>未启用</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column v-if="false" label="状态" width="120">
           <template slot-scope="scope">
             <template v-if="scope.row.paied===1">
               <el-tag v-if="scope.row.status === 0">已启用</el-tag>
@@ -150,7 +180,7 @@
             </router-link>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200">
+        <el-table-column v-if="false" label="操作" width="200">
           <template slot-scope="scope">
             <template v-if="roleHasAdmin">
               <el-button v-if="scope.row.status === 0" type="warning" title="禁用" icon="el-icon-close" size="mini"
@@ -159,7 +189,6 @@
                          @click="handleEnable(scope.row)"></el-button>
             </template>
             <el-button type="primary" icon="el-icon-edit" size="mini" circle @click="handleEdit(scope.row)"></el-button>
-            <el-button type="info" icon="el-icon-message" size="mini" circle></el-button>
             <el-button type="danger" icon="el-icon-delete" size="mini" circle
                        @click="handleDelete(scope.row)"></el-button>
           </template>
@@ -223,9 +252,6 @@ export default {
       } else {
         query.name = undefined
       }
-      if (query.orderCode) {
-        query.orderCode = [query.orderCode, 'like']
-      }
       return this.api.list(query).then(response => {
         this.list = response.data.items
         this.total = response.data.total
@@ -240,6 +266,29 @@ export default {
     },
     companyChange(e) {
 
+    },
+    handleDownload() {
+      this.downloadLoading = true
+      import('@/vendor/Export2Excel').then(excel => {
+        const tHeader = ['名称', '付款状态', '启用状态', '城市', '薪资', '返现', '工作年限', '学历'].map(h => this.$t(h))
+        const filterVal = ['name', 'paied', 'status', 'city', 'pay', 'welfare', 'experience', 'education']
+        const data = this.formatJson(filterVal, this.list)
+        data.forEach(d => {
+          d[1] = d[1] === 1 ? '已付款' : '未付款'
+          d[2] = d[2] === 0 ? '已启用' : '未启用'
+          d[4] = translateP('salary', d[4])
+          d[6] = translateP('experience', d[6])
+          d[7] = translateP('education', d[7])
+        })
+        excel.export_json_to_excel({
+          header: tHeader,
+          data,
+          filename: '职位列表',
+          autoWidth: true,
+          bookType: 'xlsx'
+        })
+        this.downloadLoading = false
+      })
     }
   }
 }
