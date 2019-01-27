@@ -7,10 +7,10 @@ Vue.use(Router)
 import Layout from '@/views/layout/Layout'
 
 /* Router Modules */
-import componentsRouter from './modules/components'
-import chartsRouter from './modules/charts'
-import tableRouter from './modules/table'
-import nestedRouter from './modules/nested'
+// import componentsRouter from './modules/components'
+// import chartsRouter from './modules/charts'
+// import tableRouter from './modules/table'
+// import nestedRouter from './modules/nested'
 
 /** note: Submenu only appear when children.length>=1
  *  detail see  https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -126,9 +126,9 @@ export const asyncRouterMap = [
     },
     children: [
       {
-        path: 'company',
+        path: 'mycompany',
         component: () => import('@/views/ui/manage/company/viewme'),
-        name: 'company',
+        name: 'mycompany',
         meta: {title: '我的企业', icon: 'documentation', noCache: true}
       }
     ]
@@ -257,7 +257,7 @@ export const asyncRouterMap = [
   },
 
   {
-    path: '/user',
+    path: '/setting',
     component: Layout,
     redirect: '/user/index',
     alwaysShow: true, // will always show the root menu
@@ -267,18 +267,18 @@ export const asyncRouterMap = [
     },
     children: [
       {
-        path: 'user',
-        component: () => import('@/views/ui/sys/user/index'),
-        name: 'user',
-        menu: 'user',
-        meta: {title: '人员列表', icon: 'documentation', noCache: true}
+        path: 'optLog',
+        component: () => import('@/views/ui/cmn/optLog/index'),
+        name: 'optLog',
+        menu: 'optLog',
+        meta: {title: '操作日志', icon: 'documentation', noCache: true}
       },
       {
         path: 'user',
         component: () => import('@/views/ui/sys/user/index'),
         name: 'user',
         menu: 'user',
-        meta: {title: '操作日志', icon: 'documentation', noCache: true}
+        meta: {title: '人员列表', icon: 'documentation', noCache: true}
       }
     ]
   },

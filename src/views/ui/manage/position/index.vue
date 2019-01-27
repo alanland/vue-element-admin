@@ -13,8 +13,7 @@
 
     <sticky ref="filterForm" :model="form" class-name="filter-container flex-row flex-wrap full-width">
       <el-form :inline="true" class="filters flex-row">
-        <el-select v-model="listQuery.companyId" style="width: 200px" class="filter-item" placeholder="选择公司"
-                   @change="companyChange">
+        <el-select v-model="listQuery.companyId" style="width: 200px" class="filter-item" placeholder="选择公司">
           <el-option v-for="item in companyOptions" :key="item.name" :label="item.name" :value="item.id">
           </el-option>
         </el-select>

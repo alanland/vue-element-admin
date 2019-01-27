@@ -185,7 +185,6 @@ export default {
       user: '',
       company: {},
       form: {},
-      editing: false,
 
       isAdmin: '',
       industryOptions: [],
