@@ -10,7 +10,7 @@ function hasPermission(menus, route) {
     /*
     * 如果这个路由有menu属性,就需要判断用户是否拥有此menu权限
     */
-    return menus.indexOf(route.menu) > -1
+    return true
   } else {
     return true
   }

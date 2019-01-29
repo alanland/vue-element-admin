@@ -31,6 +31,7 @@ import Layout from '@/views/layout/Layout'
   }
  **/
 export const constantRouterMap = [
+
   {
     path: '/redirect',
     component: Layout,
@@ -69,12 +70,25 @@ export const constantRouterMap = [
     children: [
       {
         path: 'dashboard',
-        component: () => import('@/views/dashboard/index'),
+        component: () => import('@/views/ui/mengxue/register/index'),
         name: ' dashboard',
-        meta: {title: ' 平台概况', icon: 'dashboard', noCache: true}
+        meta: {title: '报名信息', icon: 'dashboard', noCache: true}
       }
     ]
-  }
+  },
+  {
+    path: '',
+    component: Layout,
+    redirect: 'tag',
+    children: [
+      {
+        path: 'tag',
+        component: () => import('@/views/ui/mengxue/tag/index'),
+        name: ' tag',
+        meta: {title: '场次', icon: 'documentation', noCache: true}
+      }
+    ]
+  },
   // {
   //   path: '/documentation',
   //   component: Layout,
@@ -114,174 +128,6 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
-
-  {
-    path: '/user/company',
-    component: Layout,
-    redirect: '/company/index',
-    alwaysShow: true, // will always show the root menu
-    meta: {
-      title: '企业管理',
-      icon: 'lock'
-    },
-    children: [
-      {
-        path: 'mycompany',
-        component: () => import('@/views/ui/manage/company/viewme'),
-        name: 'mycompany',
-        meta: {title: '我的企业', icon: 'documentation', noCache: true}
-      }
-    ]
-  },
-
-  {
-    path: '/admin',
-    component: Layout,
-    redirect: '/company/index',
-    alwaysShow: true, // will always show the root menu
-    meta: {
-      title: '客户管理',
-      icon: 'lock'
-    },
-    children: [
-      {
-        path: 'company',
-        component: () => import('@/views/ui/manage/company/index'),
-        name: 'company',
-        meta: {title: '企业列表', icon: 'documentation', noCache: true}
-      },
-      {
-        path: 'company-positions/:companyId',
-        hidden: true,
-        props: true,
-        component: () => import('@/views/ui/manage/company-positions/index'),
-        name: 'company-positions',
-        meta: {title: '企业岗位列表', icon: 'documentation', noCache: true}
-      },
-      {
-        path: 'position/:id',
-        hidden: true,
-        props: true,
-        component: () => import('@/views/ui/manage/position/detail'),
-        name: 'position-detail',
-        meta: {title: '岗位详情', icon: 'documentation', noCache: true}
-      },
-      {
-        path: 'position-delivery/:positionId',
-        hidden: true,
-        props: true,
-        component: () => import('@/views/ui/manage/delivery/index'),
-        name: 'position-delivery',
-        meta: {title: '岗位投递详情', icon: 'documentation', noCache: true}
-      }
-    ]
-  },
-
-  {
-    path: '/position',
-    component: Layout,
-    redirect: '/company/index',
-    alwaysShow: true, // will always show the root menu
-    meta: {
-      title: '职位管理',
-      icon: 'lock'
-    },
-    children: [
-      {
-        path: 'position',
-        component: () => import('@/views/ui/manage/position/index'),
-        name: 'position',
-        meta: {title: '职位列表', icon: 'documentation', noCache: true}
-      }
-    ]
-  },
-
-  {
-    path: '/member',
-    component: Layout,
-    redirect: '/company/index',
-    alwaysShow: true, // will always show the root menu
-    meta: {
-      title: '会员管理',
-      icon: 'lock'
-    },
-    children: [
-      {
-        path: 'member',
-        component: () => import('@/views/ui/manage/member/index'),
-        name: 'member',
-        meta: {title: '会员列表', icon: 'documentation', noCache: true}
-      },
-      {
-        path: 'member/:id',
-        hidden: true,
-        props: true,
-        component: () => import('@/views/ui/manage/member/detail'),
-        name: 'member-detail',
-        meta: {title: '会员详情', icon: 'documentation', noCache: true}
-      },
-      {
-        path: 'member-delivery/:memberId',
-        hidden: true,
-        props: true,
-        component: () => import('@/views/ui/manage/delivery/index'),
-        name: 'member-delivery',
-        meta: {title: '会员投递详情', icon: 'documentation', noCache: true}
-      }
-    ]
-  },
-
-  {
-    path: '/bill',
-    component: Layout,
-    redirect: '/company/index',
-    alwaysShow: true, // will always show the root menu
-    meta: {
-      title: '订单管理',
-      icon: 'lock'
-    },
-    children: [
-      {
-        path: 'bill',
-        component: () => import('@/views/ui/manage/bill/index'),
-        name: 'bill',
-        meta: {title: '客户缴费列表', icon: 'documentation', noCache: true}
-      },
-      {
-        path: 'welfare',
-        component: () => import('@/views/ui/manage/welfare/index'),
-        name: 'welfare',
-        meta: {title: '会员返佣列表', icon: 'documentation', noCache: true}
-      }
-    ]
-  },
-
-  {
-    path: '/setting',
-    component: Layout,
-    redirect: '/user/index',
-    alwaysShow: true, // will always show the root menu
-    meta: {
-      title: '设置',
-      icon: 'lock'
-    },
-    children: [
-      {
-        path: 'optLog',
-        component: () => import('@/views/ui/cmn/optLog/index'),
-        name: 'optLog',
-        menu: 'optLog',
-        meta: {title: '操作日志', icon: 'documentation', noCache: true}
-      },
-      {
-        path: 'user',
-        component: () => import('@/views/ui/sys/user/index'),
-        name: 'user',
-        menu: 'user',
-        meta: {title: '人员列表', icon: 'documentation', noCache: true}
-      }
-    ]
-  },
   // {
   //   path: '/permission',
   //   component: Layout,
