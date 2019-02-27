@@ -79,6 +79,19 @@ export const constantRouterMap = [
   {
     path: '',
     component: Layout,
+    redirect: 'dashboard',
+    children: [
+      {
+        path: 'home',
+        component: () => import('@/views/ui/mengxue/home/index'),
+        name: ' home',
+        meta: {title: '首页信息', icon: 'dashboard', noCache: true}
+      }
+    ]
+  },
+  {
+    path: '',
+    component: Layout,
     redirect: 'tag',
     children: [
       {

@@ -3,5 +3,4 @@ import baseApi from '@/api/base'
 
 const baseUrl = '/rest/mengxueTag'
 
-export default Object.assign(baseApi(baseUrl), {
-})
+export default Object.assign(baseApi(baseUrl), {})

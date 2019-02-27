@@ -1,4 +1,3 @@
 yarn build
-rm zhaopin-web.zip
-zip -r  zhaopin-web.zip dist/
-
+rm mengxue-web.zip
+zip -r  mengxue-web.zip dist/
